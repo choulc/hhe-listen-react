@@ -1,5 +1,5 @@
 import { toInteger } from 'lodash';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,12 +8,13 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 const Menu = () => {
 
     const { volumeNum } = useParams()
-    const [activeVolume, setActiveVolume] = useState(5)
+    const [activeVolume, setActiveVolume] = useState(0)
     const volumeSelectors = useSelector((state) => state.menu.volumeSelectors)
     const listenTypeSelectors = useSelector((state) => state.menu.listenTypeSelectors)
 
-    console.log(volumeNum)
-
+    useEffect(() => {
+        toInteger(volumeNum) <= 5 && setActiveVolume(toInteger(volumeNum))
+    }, [volumeNum])
 
     const handleMenuClicked = (e) => {
 

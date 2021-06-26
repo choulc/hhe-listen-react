@@ -1,0 +1,51 @@
+.intro {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding-top: 72px;
+    font-family: "Microsoft JhengHei", "Lora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.intro-hhe {
+    background-position: 50% top;
+}
+.intro-body {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: -webkit-center;
+    color: #000;
+}
+.intro-body .brand-heading {
+    font-size: 60px;
+    font-family: "Microsoft JhengHei", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.intro-body .brand-heading span {
+    font-size: 90px;
+}
+.intro-body .intro-text {
+    font-size: 18px;
+}
+.intro-body .notice {
+    color: #999;
+}
+.intro-footer {
+    display: table-footer-group;
+    vertical-align: bottom;
+    text-align: -webkit-center;
+}
+@media (min-width: 768px) {
+    .intro-body .brand-heading {
+        font-size: 100px;
+    }
+    .intro-body .brand-heading span {
+        font-size: 140px;
+    }
+    .intro-body .intro-text {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,231 @@
+.select-all-btn-block {
+    margin: 4px 4px 4px 10px;
+}
+
+.select-all-btn {
+    color: grey;
+}
+
+.select-all-btn:hover {
+    color: #115cca;
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.cancel-all-btn {
+    color: grey;
+}
+
+.cancel-all-btn:hover {
+    color: #d23232;
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.dropdown-menu.show {
+    position: absolute;
+    transform: translate3d(0px, 35px, 0px);
+    top: 0px;
+    left: 0px;
+    will-change: transform;
+}
+
+input.checkClass {
+    min-width: 20px;
+    min-height: 20px;
+}
+
+#mask {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    z-index: 1031;
+    width: 100vw;
+    height: 120%;
+    background-color: black;
+    opacity: .8;
+}
+
+#mask > #mask-text-block {
+    position: fixed;
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 45px;
+    margin: 50vh auto 0 auto;
+    border-radius: 5px;
+}
+
+#mask > #mask-text-block > #mask-text {
+    color: white;
+    width: 150px;
+    margin: 0 auto;
+    font-weight: 900;
+    padding-top: 10px;
+}
+
+#play-mode-block {
+    text-align: right;
+}
+
+label.radio-container {
+    position: relative;
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	line-height: 16px;
+    color: #fff;
+}
+
+label.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+label.radio-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+label.radio-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+label.radio-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+label.radio-container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+}
+
+#player-section {
+    /* position: sticky; */
+    /* top: 0; */
+    z-index: 5;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+  
+#player-section .container {
+    padding-bottom: 15px;
+    /* border-bottom:2px solid #dee3e8; */
+}
+
+#ani-menu-container {
+    --title-width: 50px;
+    --menu-height: 200px;
+    --menu-icon-size: 1.5rem;
+}
+
+#ani-menu-container .ani-menu {
+    width: 100%;
+}
+
+#ani-menu-container .ani-menu .title {
+    width: 350px;
+    background-color: rgb(233, 236, 241);
+    padding: 15px 10px;
+    color: black;
+    text-align: left;
+    line-height: 20px;
+    font-weight: 900;
+    display: flex;
+    font-size: 1.2rem;
+}
+
+#ani-menu-container .ani-menu .title:before {
+    content: '';
+    background-size: var(--menu-icon-size);
+    width: var(--menu-icon-size); 
+    height: var(--menu-icon-size);  
+    display: block;
+    margin-left: 15px;
+    color: rgb(0, 87, 172);
+    margin-right: 10px;
+    margin-bottom: -3px;
+    vertical-align: text-top;
+    /* height: 40px; */
+}
+
+#ani-reading .title::before {
+    background: url('../images/icon_ani_reading.svg') no-repeat top center;
+}
+
+#ani-makeup .title::before {
+    background: url('../images/icon_ani_makeup.svg')no-repeat top center;
+}
+
+#ani-menu-container .ani-menu .content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border: thin solid rgb(233, 236, 241);
+    padding-inline-start: 0;
+    padding: 20px;
+}
+
+.ani-menu .content li {
+    display: block;
+    /* width: 12rem; */
+    height: 30px;
+    padding: 5px 20px 5px 10px;
+    text-align: left;
+    color: black;
+}
+
+.ani-menu .content li::before {
+    content: '';
+    margin-bottom: 3px;
+    margin-right: 8px;
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+@media (max-width:768px) {
+  .dropdown-menu.show {
+    top: 49%;
+  }
+  #ani-menu-container .ani-menu .title {
+    width: 100%;
+}
+
+/* #ani-menu-container .ani-menu .title:before {
+ 
+     height: 35px; 
+} */
+}

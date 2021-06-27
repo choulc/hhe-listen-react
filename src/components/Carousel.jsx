@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import * as _ from 'lodash'
 import CarouselImages from './CarouselImages';
 import eng1 from '../assets/images/eng1.png';
 import eng2 from '../assets/images/eng2.png';

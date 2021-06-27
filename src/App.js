@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
-        <Route path="/listen/:volumeNum">
+        <Route path="/listen/:volumeNum?">
           <Listen />
         </Route>
         <Route path="/">

@@ -4,7 +4,12 @@ const menuInit = {
     name: '',
     code: '',
     volumeSelectors: [],
-    listenTypeSelectors: []
+    listenTypeSelectors: [],
+    volume1LessonSelectors: [],
+    volume2LessonSelectors: [],
+    volume3LessonSelectors: [],
+    volume4LessonSelectors: [],
+    volume5LessonSelectors: [],
 }
 
 const menuSlice = createSlice({
@@ -16,6 +21,11 @@ const menuSlice = createSlice({
             state.code = action.payload.code
             state.volumeSelectors = action.payload.volumeSelectors
             state.listenTypeSelectors = action.payload.listenTypeSelectors
+            state.volume1LessonSelectors = action.payload.volumeSelectors[0].lessonSelectors
+            state.volume2LessonSelectors = action.payload.volumeSelectors[1].lessonSelectors
+            state.volume3LessonSelectors = action.payload.volumeSelectors[2].lessonSelectors
+            state.volume4LessonSelectors = action.payload.volumeSelectors[3].lessonSelectors
+            state.volume5LessonSelectors = action.payload.volumeSelectors[4].lessonSelectors
         },
     }
 })

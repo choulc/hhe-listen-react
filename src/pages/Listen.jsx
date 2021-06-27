@@ -9,6 +9,7 @@ import { getMenu } from '../store/menuSlice';
 import ListenContent from '../components/ListenContent';
 import ListenFooter from '../components/ListenFooter';
 import Player from '../components/Player';
+import { AudioPlayerProvider, useAudioPlayer } from "react-use-audio-player"
 
 const Listen = () => {
 
@@ -24,10 +25,12 @@ const Listen = () => {
 
     return (
         <React.Fragment>
-            <Menu />
-            <ListenContent />
-            <Player />
-            <ListenFooter />
+            <AudioPlayerProvider>
+                <Menu />
+                <ListenContent />
+                <Player />
+                <ListenFooter />
+            </AudioPlayerProvider>
         </React.Fragment>
     );
 }

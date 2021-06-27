@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useAudioPlayer } from "react-use-audio-player"
 
 const Player = () => {
+
+    const lessons = useSelector(state => state.listen.lessons)
+    const [playList, setPlayList] = useState([])
+    const [playIndex, setPlayIndex] = useState(0)
+
+    useEffect(() => {
+        let tempPlayList = []
+        lessons.forEach(lesson => {
+            lesson.listenPacks.forEach(unit => {
+                unit.stages.forEach(stage => {
+                    tempPlayList.push(`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
+                });
+            });
+        });
+        setPlayList(tempPlayList)
+        console.log(tempPlayList[0])
+    }, [lessons])
+
+    const { togglePlayPause, ready, loading, playing } = useAudioPlayer({
+        src: `${playList.length > 0 ? playList[0] : ''}`,
+        format: "mp3",
+        autoplay: false,
+        onend: () => console.log("sound has ended!")
+    })
+
     return (
         <React.Fragment>
             <section id="player-section" class="section-content">
@@ -14,10 +41,11 @@ const Player = () => {
                                             <div class="audiojs" classname="audiojs" id="audiojs_wrapper0">
                                                 <audio id="player" preload="" src="https://cdn-listening.hle.com.tw/hhe/音檔/L01 Building a Better Relationship_IdiomsAndPhrases_Idioms And Phrases.mp3"></audio>
                                                 <div class="play-pause">
-                                                    <p class="play"></p>
+                                                    {/* <p class="play"></p>
                                                     <p class="pause"></p>
                                                     <p class="loading"></p>
-                                                    <p class="error"></p>
+                                                    <p class="error"></p> */}
+                                                    <button onClick={togglePlayPause}>{playing ? "Pause" : "Play"}</button>
                                                 </div>
                                                 <div class="scrubber">
                                                     <div class="progress" style={{ width: 0 }}></div>

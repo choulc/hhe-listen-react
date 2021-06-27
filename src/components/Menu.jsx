@@ -1,12 +1,14 @@
 import * as _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { getLessons } from '../store/listenSlice';
 
 const Menu = () => {
+    const dispatch = useDispatch()
     const location = useLocation()
     const history = useHistory()
     const { volumeNum } = useParams()
@@ -54,7 +56,7 @@ const Menu = () => {
 
         const feachData = async () => {
             let result = await axios.get(`https://listenapi.hle.com.tw/volume/${volumeNum}/packs/query?domain=hhe&${location.search.substring(1)}`)
-            console.log(result.data)
+            dispatch(getLessons(result.data))
         }
 
         if (location.search.length > 0) {
@@ -62,7 +64,7 @@ const Menu = () => {
             feachData()
         }
 
-    }, [location.search, volumeNum])
+    }, [location.search, volumeNum, dispatch])
 
     const handleMenuClicked = (e) => {
 

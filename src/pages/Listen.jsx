@@ -6,6 +6,9 @@ import Menu from '../components/Menu';
 import { useDispatch } from 'react-redux';
 import axios from 'axios'
 import { getMenu } from '../store/menuSlice';
+import ListenContent from '../components/ListenContent';
+import ListenFooter from '../components/ListenFooter';
+import Player from '../components/Player';
 
 const Listen = () => {
 
@@ -22,7 +25,9 @@ const Listen = () => {
     return (
         <React.Fragment>
             <Menu />
-            Listen page
+            <ListenContent />
+            <Player />
+            <ListenFooter />
         </React.Fragment>
     );
 }

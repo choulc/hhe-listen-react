@@ -19,7 +19,7 @@ const LessonAnimation = () => {
                 <ul className="content">
                     {animationList.map((animation, index) => (
                         <li key={index}>
-                            <Link to={animation.readingAnimationUrl} target="_blank">{animation.number}</Link>
+                            <Link to={{ pathname: animation.readingAnimationUrl }} target="_blank">{animation.number}</Link>
                         </li>
                     ))}
                 </ul>

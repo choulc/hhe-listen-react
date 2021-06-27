@@ -19,7 +19,7 @@ const SupportVideo = () => {
                 <ul className="content">
                     {supportVideoList.map((surrportVideo, index) => (
                         <li key={index}>
-                            <Link to={surrportVideo.makeUpAnimationUrl} target="_blank">{`${surrportVideo.makeUpAnimationName} ${surrportVideo.number}`}</Link>
+                            <Link to={{ pathname: surrportVideo.makeUpAnimationUrl }} target="_blank">{`${surrportVideo.makeUpAnimationName} ${surrportVideo.number}`}</Link>
                         </li>
                     ))}
                 </ul>

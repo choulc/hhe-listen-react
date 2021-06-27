@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SupportVideo = () => {
+
+    const lessons = useSelector(state => state.listen.lessons)
+    const [supportVideoList, setSupportVideoList] = useState([])
+
+    useEffect(() => {
+        let tempSupportVideoList = lessons.filter(lesson => lesson.lesson.makeUpAnimationUrl !== null).map(lesson => ({ 'number': lesson.lesson.number, 'makeUpAnimationUrl': lesson.lesson.makeUpAnimationUrl, 'makeUpAnimationName': lesson.lesson.makeUpAnimationName }))
+        setSupportVideoList(tempSupportVideoList)
+    }, [lessons])
+
     return (
         <React.Fragment>
-            <div className="ani-menu" id="ani-makeup">
+            <div className={`ani-menu ${supportVideoList.length === 0 && 'hide'}`} id="ani-makeup">
                 <div className="title">補充影片</div>
                 <ul className="content">
-                    <li><Link to="https://www.youtube.com/watch?v=j8fHNdrZTSI&amp;feature=emb_logo" target="_blank">Language in Real Life影片 L2</Link></li>
-                    <li><Link to="https://www.youtube.com/watch?v=jRq3UjZJhww" target="_blank">課文補充影片 L4</Link></li>
-                    <li><Link to="https://www.youtube.com/watch?v=RWMVwza_DJI" target="_blank">Language in Real Life影片 L5</Link></li>
-                    <li><Link to="https://www.youtube.com/watch?v=qaSDb361nKs&amp;ab_channel=TomoNewsUS" target="_blank">課文補充影片 L7</Link></li>
-                    <li><Link to="https://abc.com/shows/modern-family" target="_blank">Language in Real Life影片 L8</Link></li>
+                    {supportVideoList.map((surrportVideo, index) => (
+                        <li key={index}>
+                            <Link to={surrportVideo.makeUpAnimationUrl} target="_blank">{`${surrportVideo.makeUpAnimationName} ${surrportVideo.number}`}</Link>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </React.Fragment>

@@ -8,7 +8,7 @@ const LessonAnimation = () => {
     const [animationList, setAnimationList] = useState([])
 
     useEffect(() => {
-        let tempAnimationList = lessons.map(lesson => ({ 'number': lesson.lesson.number, 'readingAnimationUrl': lesson.lesson.readingAnimationUrl }))
+        let tempAnimationList = lessons.filter(lesson => lesson.lesson.readingAnimationUrl !== null).map(lesson => ({ 'number': lesson.lesson.number, 'readingAnimationUrl': lesson.lesson.readingAnimationUrl }))
         setAnimationList(tempAnimationList)
     }, [lessons])
 

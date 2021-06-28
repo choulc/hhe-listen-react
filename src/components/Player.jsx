@@ -59,18 +59,7 @@ const Player = (props) => {
     )
 
     const handleOnEnd = () => {
-        switch (playMode) {
-            case "loopAll":
-                playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)
-                break;
-            case "loopSingle":
-                // setPlayIndex(playIndex)
-                console.log(playIndex)
-                break;
-
-            default:
-                break;
-        }
+        playMode === "loopAll" ? (playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)) : setPlayIndex(playIndex)
     }
 
     const handlePlayButtonClicked = () => {
@@ -79,6 +68,7 @@ const Player = (props) => {
     }
 
     const handleChangModeRadioOnChaged = e => {
+        console.log(e.target.value)
         setPlayMode(e.target.value)
     }
 
@@ -88,37 +78,37 @@ const Player = (props) => {
 
     return (
         <React.Fragment>
-            <section id="player-section" class="section-content">
-                <div class="container">
-                    <div class="row">
+            <section id="player-section" className="section-content">
+                <div className="container">
+                    <div className="row">
                         <div id="play_page">
-                            <div class="row player">
-                                <div class="col-11 col-xl-8 col-lg-8 col-md-10 col-sm-11 mx-auto">
-                                    <div id="play-block" class={isNullListenPacks ? 'hide' : ''}>
-                                        <div id="audio-block" class="">
-                                            <div class="audiojs" classname="audiojs" id="audiojs_wrapper0">
+                            <div className="row player">
+                                <div className="col-11 col-xl-8 col-lg-8 col-md-10 col-sm-11 mx-auto">
+                                    <div id="play-block" className={isNullListenPacks ? 'hide' : ''}>
+                                        <div id="audio-block" className="">
+                                            <div className="audiojs" id="audiojs_wrapper0">
                                                 <audio id="player" preload="" src="https://cdn-listening.hle.com.tw/hhe/音檔/L01 Building a Better Relationship_IdiomsAndPhrases_Idioms And Phrases.mp3"></audio>
-                                                <div class="play-pause d-flex justify-content-center align-items-center" onClick={() => { handlePlayButtonClicked() }}>
+                                                <div className="play-pause d-flex justify-content-center align-items-center" onClick={() => { handlePlayButtonClicked() }}>
                                                     <FontAwesomeIcon icon={playing ? faPause : faPlay} />
                                                 </div>
-                                                <div class="scrubber" ref={seekBarElem} onClick={goTo}>
-                                                    {/* <div class="progress" style={{ width: 0 }}></div>
-                                                    <div class="loaded" style={{ width: 425 }}></div> */}
+                                                <div className="scrubber" ref={seekBarElem} onClick={goTo}>
+                                                    {/* <div className="progress" style={{ width: 0 }}></div>
+                                                    <div className="loaded" style={{ width: 425 }}></div> */}
                                                     <div style={{ width: barWidth }} className="progress" />
                                                 </div>
-                                                <div class="time">
-                                                    <em class="played">{formatTime(elapsed)}</em>/<strong class="duration">{formatTime(duration)}</strong>
+                                                <div className="time">
+                                                    <em className="played">{formatTime(elapsed)}</em>/<strong className="duration">{formatTime(duration)}</strong>
                                                 </div>
-                                                <div class="error-message">
+                                                <div className="error-message">
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="play-mode-block">
-                                            <label class="radio-container">單曲循環<input type="radio" name="play-mode" value="loopSingle" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
-                                                <span class="checkmark"></span>
+                                            <label className="radio-container">單曲循環<input type="radio" name="play-mode" value="loopSingle" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
+                                                <span className="checkmark"></span>
                                             </label>
-                                            <label class="radio-container">全部循環<input type="radio" defaultChecked="checked" name="play-mode" value="loopAll" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
-                                                <span class="checkmark"></span>
+                                            <label className="radio-container">全部循環<input type="radio" defaultChecked="checked" name="play-mode" value="loopAll" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
+                                                <span className="checkmark"></span>
                                             </label>
                                         </div>
                                     </div>

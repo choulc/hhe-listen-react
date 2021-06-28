@@ -357,8 +357,8 @@ const Menu = (props) => {
                                                     <div className="dropdown-divider"></div>
                                                     <div className="container">
                                                         <div className="row">
-                                                            <div className="col-12">
-                                                                <button type="button" name="button" className="float-right btn btn-round btn-primary" onClick={() => { handleSubmitClicked(volume.number) }}>確定</button>
+                                                            <div className="col-12 d-flex justify-content-end">
+                                                                <button type="button" name="button" className="btn btn-round btn-primary" onClick={() => { handleSubmitClicked(volume.number) }}>確定</button>
                                                             </div>
                                                         </div>
                                                     </div>

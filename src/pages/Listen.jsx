@@ -55,7 +55,10 @@ const Listen = () => {
     return (
         <React.Fragment>
             <AudioPlayerProvider>
-                <Menu setPlayIndex={setPlayIndex} />
+                <Menu
+                    setPlayIndex={setPlayIndex}
+                    setStartPlaying={setStartPlaying}
+                />
                 <ListenContent
                     lessonList={lessonList}
                     playIndex={playIndex}

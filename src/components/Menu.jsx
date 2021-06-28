@@ -10,7 +10,7 @@ import { useAudioPlayer } from 'react-use-audio-player';
 
 const Menu = (props) => {
 
-    const { setPlayIndex } = props
+    const { setPlayIndex, setStartPlaying } = props
     const dispatch = useDispatch()
     const location = useLocation()
     const history = useHistory()
@@ -287,6 +287,7 @@ const Menu = (props) => {
                 break;
         }
         setPlayIndex(0)
+        setStartPlaying(false)
         stop()
         history.push(`/listen/${volume}?lessonNums=${lessonNums.join(",")}&units=${units.join(",")}`)
     }

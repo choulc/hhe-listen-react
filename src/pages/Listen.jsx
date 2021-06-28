@@ -20,7 +20,6 @@ const Listen = () => {
     const [playIndex, setPlayIndex] = useState(0)
     const [lessonList, setLessonList] = useState([])
     const [startPlaying, setStartPlaying] = useState(false)
-    const [playMode, setPlayMode] = useState('loopAll')
 
     useEffect(() => {
         const getData = async () => {
@@ -72,8 +71,6 @@ const Listen = () => {
                     playList={playList}
                     startPlaying={startPlaying}
                     setStartPlaying={setStartPlaying}
-                    playMode={playMode}
-                    setPlayMode={setPlayMode}
                 />
                 <ListenFooter />
             </AudioPlayerProvider>

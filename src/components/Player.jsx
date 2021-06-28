@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { useAudioPlayer, useAudioPosition } from "react-use-audio-player"
-import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faPause, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 const formatTime = (seconds) => {
     const floored = Math.floor(seconds)
@@ -19,22 +19,31 @@ const formatTime = (seconds) => {
 
 const Player = (props) => {
 
-    const { playIndex, setPlayIndex, playList, startPlaying, setStartPlaying, playMode, setPlayMode } = props
+    const { playIndex, setPlayIndex, playList, startPlaying, setStartPlaying } = props
     const isNullListenPacks = useSelector(state => state.listen.isNullListenPacks)
     const [barWidth, setBarWidth] = useState("0%")
+    const [myVolume, setMyVolume] = useState(100)
     const seekBarElem = useRef(null)
+    const [currentMode, setCurrentMode] = useState('loopAll')
 
-    const { togglePlayPause, play, ready, loading, playing, player } = useAudioPlayer({
+    const { togglePlayPause, playing, ended, ready, volume } = useAudioPlayer({
         src: `${playList.length > 0 ? playList[playIndex] : ''}`,
         format: "mp3",
         autoplay: startPlaying,
         loop: true,
-        onend: () => {
-            handleOnEnd()
-        },
     })
 
+    useEffect(() => {
+        if (ended && currentMode === "loopAll") {
+            playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)
+        }
+    }, [ended])
 
+    useEffect(() => {
+        if (ready) {
+            volume((myVolume / 100).toFixed(2))
+        }
+    }, [ready])
 
     const { duration, position, seek, percentComplete } = useAudioPosition({
         highRefreshRate: true
@@ -58,10 +67,10 @@ const Player = (props) => {
         [duration, playing, seek]
     )
 
-    const handleOnEnd = () => {
-        console.log(playMode)
-        // playMode === "loopAll" ? (playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)) : setPlayIndex(playIndex)
-    }
+    const handleVolumeChanged = useCallback((slider) => {
+        setMyVolume(Number(slider.target.value))
+        return volume(parseFloat((myVolume / 100).toFixed(2)))
+    }, [volume, myVolume])
 
     const handlePlayButtonClicked = () => {
         togglePlayPause()
@@ -70,7 +79,7 @@ const Player = (props) => {
 
     const handleChangModeRadioOnChaged = e => {
         console.log(e.target.value)
-        setPlayMode(e.target.value)
+        setCurrentMode(e.target.value)
     }
 
     if (duration === Infinity) return null
@@ -88,13 +97,10 @@ const Player = (props) => {
                                     <div id="play-block" className={isNullListenPacks ? 'hide' : ''}>
                                         <div id="audio-block" className="">
                                             <div className="audiojs" id="audiojs_wrapper0">
-                                                <audio id="player" preload="" src="https://cdn-listening.hle.com.tw/hhe/音檔/L01 Building a Better Relationship_IdiomsAndPhrases_Idioms And Phrases.mp3"></audio>
                                                 <div className="play-pause d-flex justify-content-center align-items-center" onClick={() => { handlePlayButtonClicked() }}>
                                                     <FontAwesomeIcon icon={playing ? faPause : faPlay} />
                                                 </div>
                                                 <div className="scrubber" ref={seekBarElem} onClick={goTo}>
-                                                    {/* <div className="progress" style={{ width: 0 }}></div>
-                                                    <div className="loaded" style={{ width: 425 }}></div> */}
                                                     <div style={{ width: barWidth }} className="progress" />
                                                 </div>
                                                 <div className="time">
@@ -104,13 +110,25 @@ const Player = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="play-mode-block">
-                                            <label className="radio-container">單曲循環<input type="radio" name="play-mode" value="loopSingle" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                            <label className="radio-container">全部循環<input type="radio" defaultChecked="checked" name="play-mode" value="loopAll" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
-                                                <span className="checkmark"></span>
-                                            </label>
+                                        <div className="control-block d-flex justify-content-between align-items-end">
+                                            <div className="volume-block d-flex align-items-center">
+                                                <input
+                                                    type="range"
+                                                    min={0}
+                                                    max={100}
+                                                    onChange={handleVolumeChanged}
+                                                    value={myVolume}
+                                                />
+                                                <span style={{ marginLeft: 5 }}><FontAwesomeIcon icon={faVolumeUp} /></span>
+                                            </div>
+                                            <div id="play-mode-block">
+                                                <label className="radio-container">單曲循環<input type="radio" checked={currentMode === "loopSingle"} name="play-mode" value="loopSingle" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
+                                                    <span className="checkmark"></span>
+                                                </label>
+                                                <label className="radio-container">全部循環<input type="radio" checked={currentMode === "loopAll"} name="play-mode" value="loopAll" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
+                                                    <span className="checkmark"></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

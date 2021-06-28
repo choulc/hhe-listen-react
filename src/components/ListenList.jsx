@@ -21,7 +21,6 @@ const ListenList = (props) => {
 
     const handlePlayLiClicked = (e) => {
         setPlayIndex(playList.indexOf(e.target.dataset.src))
-        play()
         setStartPlaying(true)
     }
 

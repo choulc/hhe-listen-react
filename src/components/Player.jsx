@@ -59,7 +59,8 @@ const Player = (props) => {
     )
 
     const handleOnEnd = () => {
-        playMode === "loopAll" ? (playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)) : setPlayIndex(playIndex)
+        console.log(playMode)
+        // playMode === "loopAll" ? (playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)) : setPlayIndex(playIndex)
     }
 
     const handlePlayButtonClicked = () => {

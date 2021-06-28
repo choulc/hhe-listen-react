@@ -8,7 +8,7 @@ const ListenList = (props) => {
 
     const { lessonList, playIndex, setPlayIndex, playList, setStartPlaying } = props
 
-    const { stop, play } = useAudioPlayer()
+    const { play } = useAudioPlayer()
 
     // adding "playing" class for current play item
     useEffect(() => {
@@ -20,7 +20,6 @@ const ListenList = (props) => {
     }, [lessonList, playIndex, playList])
 
     const handlePlayLiClicked = (e) => {
-        stop()
         setPlayIndex(playList.indexOf(e.target.dataset.src))
         play()
         setStartPlaying(true)

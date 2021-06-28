@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
-import { useAudioPlayer } from 'react-use-audio-player';
 
 const ListenList = (props) => {
 
     const { lessonList, playIndex, setPlayIndex, playList, setStartPlaying } = props
-
-    const { play } = useAudioPlayer()
 
     // adding "playing" class for current play item
     useEffect(() => {
@@ -39,7 +36,8 @@ const ListenList = (props) => {
                                         <React.Fragment key={stageIndex}>
                                             <li className="play-unit stage" data-src={`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.name}_${unit.audioFolder}_${stage.name}.mp3`} onClick={(e) => { handlePlayLiClicked(e) }}>
                                                 {stage.name}
-                                                <Link className="download" download="" to={{ pathname: `https://listenapi.hle.com.tw/download/mp3?d=hhe&t=${unit.audioFolder}&n=${lesson.name}_I${unit.audioFolder}_${unit.typeName}&dn=${lesson.name}_${unit.audioFolder}_${unit.typeName}` }} onClick={(e) => { e.stopPropagation() }} target="_blank">
+                                                {console.log(`https://listenapi.hle.com.tw/download/mp3?d=hhe&t=${unit.typeName}&n=${encodeURIComponent(lesson.name)}_${unit.typeName}_${encodeURIComponent(stage.name)}&dn=${encodeURIComponent(lesson.name)}_${unit.typeName}_${encodeURIComponent(stage.name)}`)}
+                                                <Link className="download" download="" to={{ pathname: `https://listenapi.hle.com.tw/download/mp3?d=hhe&t=${decodeURI(unit.audioFolder)}&n=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}&dn=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}` }} onClick={(e) => { e.stopPropagation() }} target="_blank">
                                                     <FontAwesomeIcon icon={faCloudDownloadAlt} />
                                                 </Link>
                                             </li>

@@ -17,44 +17,28 @@ const formatTime = (seconds) => {
     return new Date(floored * 1000).toISOString().substr(from, length)
 }
 
-const Player = () => {
+const Player = (props) => {
 
-    const lessons = useSelector(state => state.listen.lessons)
-    const [playList, setPlayList] = useState([])
-    const [playIndex, setPlayIndex] = useState(0)
+    const { playIndex, setPlayIndex, playList, startPlaying, setStartPlaying, playMode, setPlayMode } = props
+    const isNullListenPacks = useSelector(state => state.listen.isNullListenPacks)
     const [barWidth, setBarWidth] = useState("0%")
     const seekBarElem = useRef(null)
 
-    useEffect(() => {
-        let tempPlayList = []
-        lessons.forEach(lesson => {
-            lesson.listenPacks.forEach(unit => {
-                unit.stages.forEach(stage => {
-                    tempPlayList.push(`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
-                });
-            });
-        });
-        setPlayList(tempPlayList)
-        console.log(tempPlayList[0])
-    }, [lessons])
-
-    const { togglePlayPause, play, ready, loading, playing } = useAudioPlayer({
+    const { togglePlayPause, play, ready, loading, playing, player } = useAudioPlayer({
         src: `${playList.length > 0 ? playList[playIndex] : ''}`,
         format: "mp3",
-        autoplay: true,
+        autoplay: startPlaying,
+        loop: true,
         onend: () => {
-            playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)
-            console.log("sound has ended!")
-        }
+            handleOnEnd()
+        },
     })
+
+
 
     const { duration, position, seek, percentComplete } = useAudioPosition({
         highRefreshRate: true
     })
-
-    // useEffect(() => {
-    //     player.play()
-    // }, [playIndex])
 
     useEffect(() => {
         setBarWidth(`${percentComplete}%`)
@@ -74,6 +58,30 @@ const Player = () => {
         [duration, playing, seek]
     )
 
+    const handleOnEnd = () => {
+        switch (playMode) {
+            case "loopAll":
+                playIndex < playList.length - 1 ? setPlayIndex(playIndex + 1) : setPlayIndex(0)
+                break;
+            case "loopSingle":
+                // setPlayIndex(playIndex)
+                console.log(playIndex)
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    const handlePlayButtonClicked = () => {
+        togglePlayPause()
+        !startPlaying && setStartPlaying(true)
+    }
+
+    const handleChangModeRadioOnChaged = e => {
+        setPlayMode(e.target.value)
+    }
+
     if (duration === Infinity) return null
     const elapsed = typeof position === "number" ? position : 0
 
@@ -86,11 +94,11 @@ const Player = () => {
                         <div id="play_page">
                             <div class="row player">
                                 <div class="col-11 col-xl-8 col-lg-8 col-md-10 col-sm-11 mx-auto">
-                                    <div id="play-block" class="">
+                                    <div id="play-block" class={isNullListenPacks ? 'hide' : ''}>
                                         <div id="audio-block" class="">
                                             <div class="audiojs" classname="audiojs" id="audiojs_wrapper0">
                                                 <audio id="player" preload="" src="https://cdn-listening.hle.com.tw/hhe/音檔/L01 Building a Better Relationship_IdiomsAndPhrases_Idioms And Phrases.mp3"></audio>
-                                                <div class="play-pause d-flex justify-content-center align-items-center" onClick={togglePlayPause}>
+                                                <div class="play-pause d-flex justify-content-center align-items-center" onClick={() => { handlePlayButtonClicked() }}>
                                                     <FontAwesomeIcon icon={playing ? faPause : faPlay} />
                                                 </div>
                                                 <div class="scrubber" ref={seekBarElem} onClick={goTo}>
@@ -106,12 +114,11 @@ const Player = () => {
                                             </div>
                                         </div>
                                         <div id="play-mode-block">
-                                            <label class="radio-container">單曲循環<input type="radio" name="play-mode" value="single" />
+                                            <label class="radio-container">單曲循環<input type="radio" name="play-mode" value="loopSingle" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
                                                 <span class="checkmark"></span>
                                             </label>
-                                            <label class="radio-container">全部循環<input type="radio" checked="checked" name="play-mode" value="all" />
-                                                <span class="checkmark">
-                                                </span>
+                                            <label class="radio-container">全部循環<input type="radio" defaultChecked="checked" name="play-mode" value="loopAll" onChange={(e) => { handleChangModeRadioOnChaged(e) }} />
+                                                <span class="checkmark"></span>
                                             </label>
                                         </div>
                                     </div>

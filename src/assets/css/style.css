@@ -173,7 +173,7 @@ section {
 #level ul.level li {
   background-color: #e2c2c2;
 }
-#level ul.level li a {
+#level ul.level li a, #level ul.level li .nav-link {
   display: block;
   text-align: center;
   color: #000;
@@ -187,7 +187,7 @@ section {
 #level ul.level li a .fa-chevron-down {
   display: inline-block;
 }
-#level ul.level li a:hover {
+#level ul.level li a:hover, #level ul.level li .nav-link:hover {
   background-color: rgba(212, 70, 70, 0.2);
   color: #fff;
 }
@@ -198,7 +198,7 @@ section {
   background-color: #d44646;
   color: #fff;
 }
-#level ul.level li.dropdown.show a {
+#level ul.level li.dropdown.show a, #level ul.level li.dropdown.show .nav-link {
   color: #fff;
   font-size: 120%;
 }

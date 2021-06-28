@@ -2,12 +2,15 @@ import * as _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { getLessons } from '../store/listenSlice';
+import { useAudioPlayer } from 'react-use-audio-player';
 
-const Menu = () => {
+const Menu = (props) => {
+
+    const { setPlayIndex } = props
     const dispatch = useDispatch()
     const location = useLocation()
     const history = useHistory()
@@ -30,6 +33,7 @@ const Menu = () => {
     const [volume3UnitCheckedStatus, setVolume3UnitCheckedStatus] = useState([])
     const [volume4UnitCheckedStatus, setVolume4UnitCheckedStatus] = useState([])
     const [volume5UnitCheckedStatus, setVolume5UnitCheckedStatus] = useState([])
+    const { stop } = useAudioPlayer()
 
     useEffect(() => {
         setVolume1LessonCheckedStatus(new Array(volume1LessonSelectors.length).fill(false))
@@ -282,7 +286,8 @@ const Menu = () => {
             default:
                 break;
         }
-
+        setPlayIndex(0)
+        stop()
         history.push(`/listen/${volume}?lessonNums=${lessonNums.join(",")}&units=${units.join(",")}`)
     }
 
@@ -298,9 +303,9 @@ const Menu = () => {
                                     <ul className="w-100 nav nav-fill level" id="menu">
                                         {volumeSelectors.map((volume, index) => (
                                             <li key={index} id={`volume-${volume.number}`} className={activeVolume === _.toInteger(volume.number) ? "dropdown show" : "dropdown"}>
-                                                <Link className="nav-link dropdown-toggle" to="#" id={`volume${volume.number}`} role="button" aria-expanded="false" onClick={handleMenuClicked}>
+                                                <div className="nav-link dropdown-toggle" id={`volume${volume.number}`} role="button" aria-expanded="false" onClick={(e) => { handleMenuClicked(e) }}>
                                                     {volume.name} <FontAwesomeIcon icon={activeVolume === _.toInteger(volume.number) ? faChevronUp : faChevronDown} />
-                                                </Link>
+                                                </div>
                                                 <div className={activeVolume === _.toInteger(volume.number) ? "dropdown-menu show" : "dropdown-menu"} aria-labelledby={`volume${volume.number}`}>
                                                     <div className="container">
                                                         <div className="row">

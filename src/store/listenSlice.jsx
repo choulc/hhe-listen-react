@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const listenInit = {
-    lessons: []
+    lessons: [],
+    isNullListenPacks: true,
 }
 
 const listenSlice = createSlice({
@@ -10,10 +11,13 @@ const listenSlice = createSlice({
     reducers: {
         getLessons: (state, action) => {
             state.lessons = action.payload
-        }
+        },
+        updateIsNullListenPacks: (state, action) => {
+            state.isNullListenPacks = action.payload
+        },
     }
 })
 
-export const { getLessons } = listenSlice.actions
+export const { getLessons, updateIsNullListenPacks } = listenSlice.actions
 
 export default listenSlice.reducer

@@ -15,7 +15,6 @@ const ListenFooter = () => {
                     </div>
                     <hr />
                     <p>Copyright © {new Date().getFullYear()} 2021 Hanlin 翰林出版事業股份有限公司</p>
-                    <p>語音辨識技術由多普達國際股份有限公司提供</p>
                 </div>
             </footer>
         </React.Fragment>

@@ -13,11 +13,7 @@ const IndexFooter = () => {
                 {/* <!-- Footer --> */}
                 <footer>
                     <div className="container text-center">
-                        <p>Copyright &copy;
-                            {new Date().getFullYear()}
-                            Hanlin 翰林出版事業股份有限公司
-                        </p>
-                        <p>語音辨識技術由多普達國際股份有限公司提供</p>
+                        <p>Copyright © {new Date().getFullYear()}Hanlin 翰林出版事業股份有限公司</p>
                     </div>
                 </footer>
             </div>

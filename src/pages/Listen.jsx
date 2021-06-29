@@ -19,6 +19,7 @@ const Listen = () => {
     const [playList, setPlayList] = useState([])
     const [playIndex, setPlayIndex] = useState(0)
     const [lessonList, setLessonList] = useState([])
+    const [downloadSrcList, setDownLoadSrcList] = useState([])
     const [startPlaying, setStartPlaying] = useState(false)
 
     useEffect(() => {
@@ -30,12 +31,22 @@ const Listen = () => {
     }, [dispatch])
 
     useEffect(() => {
-        let tempLessonList = lessons.map(lesson => ({ 'name': lesson.lesson.name, 'order': lesson.lesson.order, 'listenPacks': lesson.listenPacks }))
+        let tempLessonList = []
+        let tempDownloadSrcList = []
+        tempLessonList = lessons.map(lesson => ({ 'name': lesson.lesson.name, 'order': lesson.lesson.order, 'listenPacks': lesson.listenPacks }))
         setLessonList(tempLessonList)
         dispatch(updateIsNullListenPacks(true))
         tempLessonList.forEach(lesson => {
             lesson.listenPacks !== null && dispatch(updateIsNullListenPacks(false))
         });
+        lessons.forEach(lesson => {
+            lesson.listenPacks !== null && lesson.listenPacks.forEach(unit => {
+                unit.stages.forEach(stage => {
+                    tempDownloadSrcList.push(`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
+                });
+            });
+        });
+        setDownLoadSrcList(tempDownloadSrcList)
     }, [lessons, dispatch])
 
     useEffect(() => {
@@ -48,7 +59,6 @@ const Listen = () => {
             });
         });
         setPlayList(tempPlayList)
-        console.log(tempPlayList[0])
     }, [lessons])
 
     return (
@@ -64,6 +74,7 @@ const Listen = () => {
                     setPlayIndex={setPlayIndex}
                     playList={playList}
                     setStartPlaying={setStartPlaying}
+                    downloadSrcList={downloadSrcList}
                 />
                 <Player
                     playIndex={playIndex}

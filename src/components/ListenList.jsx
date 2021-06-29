@@ -36,7 +36,6 @@ const ListenList = (props) => {
                                         <React.Fragment key={stageIndex}>
                                             <li className="play-unit stage" data-src={`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.name}_${unit.audioFolder}_${stage.name}.mp3`} onClick={(e) => { handlePlayLiClicked(e) }}>
                                                 {stage.name}
-                                                {console.log(`https://listenapi.hle.com.tw/download/mp3?d=hhe&t=${unit.typeName}&n=${encodeURIComponent(lesson.name)}_${unit.typeName}_${encodeURIComponent(stage.name)}&dn=${encodeURIComponent(lesson.name)}_${unit.typeName}_${encodeURIComponent(stage.name)}`)}
                                                 <Link className="download" download="" to={{ pathname: `https://listenapi.hle.com.tw/download/mp3?d=hhe&t=${decodeURI(unit.audioFolder)}&n=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}&dn=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}` }} onClick={(e) => { e.stopPropagation() }} target="_blank">
                                                     <FontAwesomeIcon icon={faCloudDownloadAlt} />
                                                 </Link>

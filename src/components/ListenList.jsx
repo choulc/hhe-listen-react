@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
+import * as constConfig from '../appConfig';
 
 const ListenList = (props) => {
 
@@ -34,9 +35,19 @@ const ListenList = (props) => {
                                     <li className="unit">{unit.typeName}</li>
                                     {unit.stages.map((stage, stageIndex) => (
                                         <React.Fragment key={stageIndex}>
-                                            <li className="play-unit stage" data-src={`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.name}_${unit.audioFolder}_${stage.name}.mp3`} onClick={(e) => { handlePlayLiClicked(e) }}>
+                                            <li
+                                                className="play-unit stage"
+                                                data-src={`${constConfig.AMAZON_DOMAIN_URL}/${constConfig.EDU_DOMAIN}/音檔/${lesson.name}_${unit.audioFolder}_${stage.name}.mp3`}
+                                                onClick={(e) => { handlePlayLiClicked(e) }}
+                                            >
                                                 {stage.name}
-                                                <Link className="download" download="" to={{ pathname: `https://listenapi.hle.com.tw/download/mp3?d=hhe&t=${decodeURI(unit.audioFolder)}&n=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}&dn=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}` }} onClick={(e) => { e.stopPropagation() }} target="_blank">
+                                                <Link
+                                                    className="download"
+                                                    download=""
+                                                    to={{ pathname: `${constConfig.API_URL}/download/mp3?d=${constConfig.EDU_DOMAIN}&t=${decodeURI(unit.audioFolder)}&n=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}&dn=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}` }}
+                                                    onClick={(e) => { e.stopPropagation() }}
+                                                    target="_blank"
+                                                >
                                                     <FontAwesomeIcon icon={faCloudDownloadAlt} />
                                                 </Link>
                                             </li>

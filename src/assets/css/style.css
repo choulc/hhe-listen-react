@@ -224,7 +224,7 @@ section {
   font-size: 18px;
   color: #000;
 }
-#level ul.level li.dropdown .dropdown-menu h3 i {
+#level ul.level li.dropdown .dropdown-menu h3 svg {
   color: #00d1b5;
 }
 #level ul.level li.dropdown .dropdown-menu .form-check-inline {

@@ -9,7 +9,9 @@ const LessonAnimation = () => {
     const [containReading, setContainReading] = useState(false)
 
     useEffect(() => {
-        let tempAnimationList = lessons.filter(lesson => lesson.lesson.readingAnimationUrl !== null).map(lesson => ({ 'number': lesson.lesson.number, 'readingAnimationUrl': lesson.lesson.readingAnimationUrl }))
+        let tempAnimationList = lessons
+            .filter(lesson => lesson.lesson.readingAnimationUrl !== null)
+            .map(lesson => ({ 'number': lesson.lesson.number, 'readingAnimationUrl': lesson.lesson.readingAnimationUrl }))
         let tempUnits = []
         if (lessons[0] !== undefined && lessons[0].listenPacks !== null) {
             tempUnits = lessons[0].listenPacks.map(unit => unit.type)
@@ -25,7 +27,12 @@ const LessonAnimation = () => {
                 <ul className="content">
                     {animationList.map((animation, index) => (
                         <li key={index}>
-                            <Link to={{ pathname: animation.readingAnimationUrl }} target="_blank">{animation.number}</Link>
+                            <Link
+                                to={{ pathname: animation.readingAnimationUrl }}
+                                target="_blank"
+                            >
+                                {animation.number}
+                            </Link>
                         </li>
                     ))}
                 </ul>

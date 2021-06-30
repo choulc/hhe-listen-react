@@ -8,7 +8,12 @@ const CarouselImages = (props) => {
     return (
         <React.Fragment>
             {!!imgSet && imgSet.map((ele, index) => (
-                <Link to={ele.url} key={index} onMouseOver={(e) => { handleMouseOverImg(e) }} onMouseOut={(e) => { handleMouseOutImg(e) }}>
+                <Link
+                    key={index}
+                    to={ele.url}
+                    onMouseOver={(e) => { handleMouseOverImg(e) }}
+                    onMouseOut={(e) => { handleMouseOutImg(e) }}
+                >
                     <img src={ele.image} height={imgHeight} width={imgWidth} alt={ele.name} />
                     <p className="book">{ele.name}</p>
                 </Link>

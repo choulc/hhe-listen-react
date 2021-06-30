@@ -3,23 +3,32 @@ import { useSelector } from 'react-redux';
 import LessonAnimation from './LessonAnimation';
 import ListenList from './ListenList';
 import SupportVideo from './SupportVideo';
-import axios from 'axios'
+import axios from 'axios';
+import * as constConfig from '../appConfig'
 
 const ListenContent = (props) => {
 
     const { lessonList, playIndex, setPlayIndex, playList, setStartPlaying, downloadSrcList } = props
     const isNullListenPacks = useSelector(state => state.listen.isNullListenPacks)
 
-    const handleZipDownladClicked = async (e) => {
+    const handleZipDownladClicked = (e) => {
         let files = downloadSrcList.map(url => url.substr(url.indexOf("音檔/") + 3))
         let data = {
             bucket: "hanlin-listening",
-            folder: `hhe/音檔/`,
+            folder: `${constConfig.EDU_DOMAIN}/音檔/`,
             files: files
         }
-        let result = await axios.post("https://av2q88q10m.execute-api.ap-northeast-1.amazonaws.com/ZipWorldoneFile", data)
-        // console.log(result.data.Location)
-        window.location.href = result.data.Location
+        let result = {}
+        axios.post(constConfig.ZIP_DOWNLOAD_API_URL, data)
+            .then((response) => {
+                result = response.data
+            }).then(() => {
+                if (result.Location === undefined) {
+                    alert("下載容量過大，請縮小搜尋範圍重新操作");
+                } else {
+                    window.location.href = result.Location
+                }
+            })
     }
 
     return (

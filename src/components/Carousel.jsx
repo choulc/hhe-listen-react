@@ -118,10 +118,6 @@ const Carousel = () => {
         };
     }, [radius])
 
-    // document.addEventListener('mousewheel', (function (e) {
-    //     console.log('hello')
-    // }))
-
     useEffect(() => {
         setAnimationName(rotateSpeed > 0 ? 'spin' : 'spinRevert')
         // auto spin
@@ -133,10 +129,9 @@ const Carousel = () => {
         setBook(e.target.alt)
     }
 
-    const handleMouseOutImg = (e) => {
+    const handleMouseOutImg = () => {
         setBook('')
     }
-
 
 
     return (

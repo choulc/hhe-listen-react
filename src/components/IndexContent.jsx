@@ -1,8 +1,6 @@
 import React from 'react';
 import 'animate.css'
 import Carousel from './Carousel';
-// import '../assets/css/carousel.css';
-// import '../assets/js/carousel.js'
 
 const IndexContent = () => {
 

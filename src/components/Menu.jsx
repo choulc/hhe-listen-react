@@ -4,20 +4,21 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faBookmark, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { getLessons } from '../store/listenSlice';
 import { useAudioPlayer } from 'react-use-audio-player';
+import * as constConfig from '../appConfig';
 
 const Menu = (props) => {
 
     const { setPlayIndex, setStartPlaying } = props
+    const { volumeNum } = useParams()
     const dispatch = useDispatch()
     const location = useLocation()
     const history = useHistory()
-    const { volumeNum } = useParams()
-    const [activeVolume, setActiveVolume] = useState(0)
     const volumeSelectors = useSelector(state => state.menu.volumeSelectors)
     const listenTypeSelectors = useSelector(state => state.menu.listenTypeSelectors)
+    const [activeVolume, setActiveVolume] = useState(0)
     const [volumeLessonList, setVolumeLessonList] = useState([[], [], [], [], []])
     const [volumeLessonCheckedState, setVolumeLessonCheckedState] = useState([[], [], [], [], []])
     const [volumeUnitCheckedState, setVolumeUnitCheckedState] = useState([[], [], [], [], []])
@@ -58,7 +59,7 @@ const Menu = (props) => {
     useEffect(() => {
 
         const feachData = async () => {
-            let result = await axios.get(`https://listenapi.hle.com.tw/volume/${volumeNum}/packs/query?domain=hhe&${location.search.substring(1)}`)
+            let result = await axios.get(`${constConfig.API_URL}/volume/${volumeNum}/packs/query?domain=${constConfig.EDU_DOMAIN}&${location.search.substring(1)}`)
             dispatch(getLessons(result.data))
         }
 
@@ -141,7 +142,7 @@ const Menu = (props) => {
                                                     <div className="container">
                                                         <div className="row">
                                                             <div className="col d-flex align-items-center">
-                                                                <h3><i className="fas fa-book"></i> 課次</h3>
+                                                                <h3><FontAwesomeIcon icon={faBook} /> 課次</h3>
                                                                 <div className="select-all-btn-block">
                                                                     [
                                                                     <span className="select-all-btn" onClick={() => { handleSelectAndCancelAll('select', volume.number, 'lesson') }}>全選</span>
@@ -165,7 +166,7 @@ const Menu = (props) => {
                                                     <div className="container">
                                                         <div className="row">
                                                             <div className="col d-flex align-items-center">
-                                                                <h3><i className="fas fa-bookmark"></i> 單元</h3>
+                                                                <h3><FontAwesomeIcon icon={faBookmark} /> 單元</h3>
                                                                 <div className="select-all-btn-block">
                                                                     [
                                                                     <span className="select-all-btn" onClick={() => { handleSelectAndCancelAll('select', volume.number, 'unit') }}>全選</span>

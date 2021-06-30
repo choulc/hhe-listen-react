@@ -13,7 +13,7 @@ const Navbar = () => {
                     <div className="navbar-header">
                         <Link className="navbar-brand page-scroll" to="/">
                             <img src={hanlin_logo} alt="翰林" className="logo" />
-                            <img src={logo} alt="國語習作聆聽練習" className="channel" />
+                            <img src={logo} alt="logo" className="channel" />
                         </Link>
                     </div>
                 </div>

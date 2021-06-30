@@ -44,8 +44,8 @@ const ListenList = (props) => {
                                                 <Link
                                                     className="download"
                                                     download=""
-                                                    to={{ pathname: `${constConfig.API_URL}/download/mp3?d=${constConfig.EDU_DOMAIN}&t=${decodeURI(unit.audioFolder)}&n=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}&dn=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}` }}
                                                     onClick={(e) => { e.stopPropagation() }}
+                                                    to={{ pathname: `${constConfig.API_URL}/download/mp3?d=${constConfig.EDU_DOMAIN}&t=${decodeURI(unit.audioFolder)}&n=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}&dn=${lesson.name}_${decodeURI(unit.audioFolder)}_${stage.name}` }}
                                                     target="_blank"
                                                 >
                                                     <FontAwesomeIcon icon={faCloudDownloadAlt} />

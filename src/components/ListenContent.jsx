@@ -12,6 +12,9 @@ const ListenContent = (props) => {
     const isNullListenPacks = useSelector(state => state.listen.isNullListenPacks)
 
     const handleZipDownladClicked = (e) => {
+
+        document.getElementById("mask").classList.remove("hide")
+
         let files = downloadSrcList.map(url => url.substr(url.indexOf("音檔/") + 3))
         let data = {
             bucket: "hanlin-listening",
@@ -19,6 +22,7 @@ const ListenContent = (props) => {
             files: files
         }
         let result = {}
+
         axios.post(constConfig.ZIP_DOWNLOAD_API_URL, data)
             .then((response) => {
                 result = response.data
@@ -28,6 +32,8 @@ const ListenContent = (props) => {
                 } else {
                     window.location.href = result.Location
                 }
+            }).then(() => {
+                document.getElementById("mask").classList.add("hide")
             })
     }
 
@@ -59,6 +65,13 @@ const ListenContent = (props) => {
                 </div>
 
             </section>
+            <div id="mask" className="hide">
+                <div id="mask-text-block">
+                    <div id="mask-text">
+                        處理中，請稍候...
+                    </div>
+                </div>
+            </div>
         </React.Fragment>
     );
 }

@@ -56,7 +56,7 @@ const ListenContent = (props) => {
                                         playList={playList}
                                         setStartPlaying={setStartPlaying}
                                     />
-                                    <div id="not-found-block" className={`${!isNullListenPacks ? 'hide' : ''}`}>您所查詢的資料無相關單元</div>
+                                    <div id="not-found-block" className={`${!isNullListenPacks ? 'hide' : ''}`}>您所查詢的單元沒有相關音檔資料</div>
                                     <div id="zip-btn" className={`btn btn-primary btn-round ${isNullListenPacks ? 'hide' : ''}`} onClick={() => { handleZipDownladClicked() }}>全部下載</div>
                                 </div>
                             </div>

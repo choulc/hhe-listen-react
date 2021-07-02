@@ -110,7 +110,7 @@ const Menu = (props) => {
         let units = []
 
         volumeLessonCheckedState[_.toInteger(volume) - 1].forEach((lessonCheckedState, index) => {
-            lessonCheckedState && lessonNums.push(volumeLessonList[_.toInteger(volume) - 1][index])
+            lessonNums.indexOf(volumeLessonList[_.toInteger(volume) - 1][index]) === -1 && lessonCheckedState && lessonNums.push(volumeLessonList[_.toInteger(volume) - 1][index])
         });
         volumeUnitCheckedState[_.toInteger(volume) - 1].forEach((unitCheckedState, index) => {
             unitCheckedState && units.push(listenTypeSelectors[index].code)
@@ -134,11 +134,25 @@ const Menu = (props) => {
                                 <div className="row">
                                     <ul className="w-100 nav nav-fill level" id="menu">
                                         {volumeSelectors.map((volume, index) => (
-                                            <li key={index} id={`volume-${volume.number}`} className={activeVolume === _.toInteger(volume.number) ? "dropdown show" : "dropdown"}>
-                                                <div className="nav-link dropdown-toggle" id={`volume${volume.number}`} role="button" aria-expanded="false" onClick={(e) => { handleMenuClicked(e) }}>
-                                                    {volume.name} <FontAwesomeIcon icon={activeVolume === _.toInteger(volume.number) ? faChevronUp : faChevronDown} />
+                                            <li
+                                                key={index}
+                                                id={`volume-${volume.number}`}
+                                                className={activeVolume === _.toInteger(volume.number) ? "dropdown show" : "dropdown"}
+                                            >
+                                                <div
+                                                    id={`volume${volume.number}`}
+                                                    className="nav-link dropdown-toggle"
+                                                    role="button"
+                                                    aria-expanded="false"
+                                                    onClick={(e) => { handleMenuClicked(e) }}
+                                                >
+                                                    {volume.name}
+                                                    <FontAwesomeIcon icon={activeVolume === _.toInteger(volume.number) ? faChevronUp : faChevronDown} />
                                                 </div>
-                                                <div className={activeVolume === _.toInteger(volume.number) ? "dropdown-menu show" : "dropdown-menu"} aria-labelledby={`volume${volume.number}`}>
+                                                <div
+                                                    className={activeVolume === _.toInteger(volume.number) ? "dropdown-menu show" : "dropdown-menu"}
+                                                    aria-labelledby={`volume${volume.number}`}
+                                                >
                                                     <div className="container">
                                                         <div className="row">
                                                             <div className="col d-flex align-items-center">
@@ -154,8 +168,18 @@ const Menu = (props) => {
                                                         </div>
                                                         <div className="row lesson-block">
                                                             {volume.lessonSelectors.map((lesson, index) => (
-                                                                <div key={index} className="form-check form-check-inline col-6 col-md-2">
-                                                                    <input className="form-check-input checkClass" type="checkbox" value={lesson.number} name={lesson.number} checked={volumeLessonCheckedState[volume.number - 1][index] || false} onChange={() => handleLessonChangeStatus(volume.number, index)} />
+                                                                <div
+                                                                    key={index}
+                                                                    className="form-check form-check-inline col-6 col-md-2"
+                                                                >
+                                                                    <input
+                                                                        className="form-check-input checkClass"
+                                                                        type="checkbox"
+                                                                        value={lesson.number}
+                                                                        name={lesson.number}
+                                                                        checked={volumeLessonCheckedState[volume.number - 1][index] || false}
+                                                                        onChange={() => handleLessonChangeStatus(volume.number, index)}
+                                                                    />
                                                                     <label className="form-check-label" htmlFor={lesson.number}>{lesson.name}</label>
                                                                 </div>
                                                             )
@@ -179,7 +203,15 @@ const Menu = (props) => {
                                                         <div className="row unit-block">
                                                             {listenTypeSelectors.map((unit, index) => (
                                                                 <div key={index} className="form-check form-check-inline col-6 col-md-2">
-                                                                    <input className="form-check-input checkClass" type="checkbox" id={`${volume.name}_${unit.code}`} value={`${volume.name}_${unit.code}`} name={`${volume.name}_${unit.code}`} checked={volumeUnitCheckedState[volume.number - 1][index] || false} onChange={() => handleUnitChangeStatus(volume.number, index)} />
+                                                                    <input
+                                                                        className="form-check-input checkClass"
+                                                                        type="checkbox"
+                                                                        id={`${volume.name}_${unit.code}`}
+                                                                        value={`${volume.name}_${unit.code}`}
+                                                                        name={`${volume.name}_${unit.code}`}
+                                                                        checked={volumeUnitCheckedState[volume.number - 1][index] || false}
+                                                                        onChange={() => handleUnitChangeStatus(volume.number, index)}
+                                                                    />
                                                                     <label className="form-check-label" htmlFor={`${volume.name}_${unit.code}`}>{unit.name}</label>
                                                                 </div>
                                                             ))}

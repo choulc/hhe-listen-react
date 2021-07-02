@@ -11,6 +11,7 @@ import ListenFooter from '../components/ListenFooter';
 import Player from '../components/Player';
 import { AudioPlayerProvider } from "react-use-audio-player"
 import { updateIsNullListenPacks } from '../store/listenSlice';
+import * as constConfig from '../appConfig'
 
 const Listen = () => {
 
@@ -24,7 +25,7 @@ const Listen = () => {
 
     useEffect(() => {
         const getData = async () => {
-            let result = await axios.get('https://listenapi.hle.com.tw/domain/hhe/selectors')
+            let result = await axios.get(`${constConfig.API_URL}/domain/hhe/selectors`)
             dispatch(getMenu(result.data))
         }
         getData()
@@ -42,7 +43,7 @@ const Listen = () => {
         lessons.forEach(lesson => {
             lesson.listenPacks !== null && lesson.listenPacks.forEach(unit => {
                 unit.stages.forEach(stage => {
-                    tempDownloadSrcList.push(`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
+                    tempDownloadSrcList.push(`${constConfig.AMAZON_DOMAIN_URL}/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
                 });
             });
         });
@@ -54,7 +55,7 @@ const Listen = () => {
         lessons.forEach(lesson => {
             lesson.listenPacks !== null && lesson.listenPacks.forEach(unit => {
                 unit.stages.forEach(stage => {
-                    tempPlayList.push(`https://cdn-listening.hle.com.tw/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
+                    tempPlayList.push(`${constConfig.AMAZON_DOMAIN_URL}/hhe/音檔/${lesson.lesson.name}_${unit.audioFolder}_${stage.name}.mp3`)
                 });
             });
         });
